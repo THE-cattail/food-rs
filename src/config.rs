@@ -4,7 +4,7 @@ use serde::Deserialize;
 type ParserFn<'de, T> = Box<dyn Fn(&'de [u8]) -> Result<T>>;
 
 macro_rules! parser_fn {
-    ( $expr:expr ) => {
+    ($expr:expr) => {
         Box::new(|buf| Ok($expr(buf)?))
     };
 }
@@ -26,6 +26,9 @@ where
     }
 }
 
+/// # Errors
+///
+/// Will return `Err` if parsing for both `toml`, `json` and `yaml` failed.
 pub fn parse<'de, T>(buf: &'de [u8]) -> Result<T>
 where
     T: Deserialize<'de>,
@@ -33,7 +36,7 @@ where
     let parsers: Vec<Parser<'de, T>> = vec![
         Parser::new("toml", parser_fn!(toml::from_slice)),
         Parser::new("json", parser_fn!(serde_json::from_slice)),
-        Parser::new("serde", parser_fn!(serde_yaml::from_slice)),
+        Parser::new("yaml", parser_fn!(serde_yaml::from_slice)),
     ];
 
     for parser in &parsers {
