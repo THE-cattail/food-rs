@@ -1,5 +1,6 @@
-use anyhow::Result;
 use std::io::{self, Write};
+
+use anyhow::Result;
 
 /// # Errors
 ///
@@ -7,7 +8,7 @@ use std::io::{self, Write};
 pub fn ask_for_continue(desc: &str) -> Result<bool> {
     print!("Continue {desc}? (Y/n): ");
     io::stdout().flush()?;
-    let mut line = "".to_owned();
+    let mut line = String::new();
     io::stdin().read_line(&mut line)?;
     line = line.trim().to_owned();
     Ok(line == "n")
