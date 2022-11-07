@@ -11,5 +11,5 @@ pub fn ask_for_continue(desc: &str) -> Result<bool> {
     let mut line = String::new();
     io::stdin().read_line(&mut line)?;
     line = line.trim().to_owned();
-    Ok(line == "n")
+    Ok(line != "n")
 }
