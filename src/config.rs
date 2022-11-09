@@ -1,4 +1,5 @@
-use color_eyre::{eyre, eyre::Result};
+use color_eyre::eyre;
+use eyre::Result;
 use serde::Deserialize;
 
 type ParserFn<'de, T> = Box<dyn Fn(&'de [u8]) -> Result<T>>;
