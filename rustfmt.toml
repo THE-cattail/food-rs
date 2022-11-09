@@ -6,7 +6,6 @@ force_explicit_abi = false
 format_code_in_doc_comments = true
 format_macro_matchers = true
 format_strings = true
-indent_style = "Visual"
 match_block_trailing_comma = true
 merge_derives = false
 imports_granularity = "Crate"
